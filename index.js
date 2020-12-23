@@ -9,7 +9,7 @@ var db=admin.firestore();
 
 const express = require('express')
 const app = express()
-const port = 8080
+const port =process.env.PORT || 8080
 var cors = require('cors')
 app.use(cors());
 const list=[];

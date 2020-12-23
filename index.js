@@ -9,7 +9,7 @@ var db=admin.firestore();
 
 const express = require('express')
 const app = express()
-const port = 5000
+const port = 3000
 var cors = require('cors')
 app.use(cors());
 const list=[];

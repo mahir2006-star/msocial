@@ -30,8 +30,6 @@ app.get('/posts', (reqt, res) => {
   .catch((error) => {
    
   });
-
-});
 });
 app.get('/getuserpost', (reqt, res) => {
 const data=[];

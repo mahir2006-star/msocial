@@ -25,7 +25,9 @@ var jso;
 jso=doc.data();
 jso.docid=doc.id;
        list.push(jso);
+
     });
+res.json(list);
   })
   .catch((error) => {
    res.send("error occured");
@@ -35,7 +37,7 @@ app.get('/getuserpost', (reqt, res) => {
 const data=[];
    admin
   .auth()
-  .getUser(reqt.query.userid)
+  .getUser(reqt.query.uid)
   .then((userRecord) => {
    db.collection("posts").where("userid","==",reqt.query.userid).get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {

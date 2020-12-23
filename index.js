@@ -12,7 +12,13 @@ const app = express()
 const port =process.env.PORT || 8080
 var cors = require('cors')
 app.use(cors());
-const list=[];
+
+app.get('/posts', (reqt, res) => {
+  admin
+  .auth()
+  .getUser(reqt.query.userid)
+  .then((userRecord) => {
+  const list=[];
 db.collection("posts").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
 var jso;
@@ -20,12 +26,6 @@ jso=doc.data();
 jso.docid=doc.id;
        list.push(jso);
     });
-app.get('/posts', (reqt, res) => {
-  admin
-  .auth()
-  .getUser(reqt.query.userid)
-  .then((userRecord) => {
-   res.json(list);
   })
   .catch((error) => {
    res.send("error occured");

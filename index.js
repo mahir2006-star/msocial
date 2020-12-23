@@ -28,7 +28,7 @@ app.get('/posts', (reqt, res) => {
    res.json(list);
   })
   .catch((error) => {
-   
+   res.send("error occured");
   });
 });
 app.get('/getuserpost', (reqt, res) => {
@@ -48,7 +48,7 @@ res.json(data);
 });
   })
   .catch((error) => {
-   
+    res.send("error occured");
   });
 
 });

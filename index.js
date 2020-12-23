@@ -21,13 +21,25 @@ jso.docid=doc.id;
        list.push(jso);
     });
 app.get('/posts', (reqt, res) => {
-var auth=admin.auth();
-res.json(list);
+  admin
+  .auth()
+  .getUser(reqt.query.userid)
+  .then((userRecord) => {
+   res.json(list);
+  })
+  .catch((error) => {
+   
+  });
+
 });
 });
 app.get('/getuserpost', (reqt, res) => {
 const data=[];
-db.collection("posts").where("userid","==",reqt.query.userid).get().then(function(querySnapshot) {
+   admin
+  .auth()
+  .getUser(reqt.query.userid)
+  .then((userRecord) => {
+   db.collection("posts").where("userid","==",reqt.query.userid).get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
 var jso;
 jso=doc.data();
@@ -36,6 +48,13 @@ jso.docid=doc.id;
     });
 res.json(data);
 });
+  })
+  .catch((error) => {
+   
+  });
+
+});
+
 
 });
 

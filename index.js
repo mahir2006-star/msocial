@@ -6,12 +6,15 @@ admin.initializeApp({
   databaseURL: "https://mavls-social.firebaseio.com"
 });
 var db=admin.firestore();
-
+var corsOptions = {
+  origin: 'https://mavls-social.web.app',
+  optionsSuccessStatus: 200 
+}
 const express = require('express')
 const app = express()
 const port =process.env.PORT || 8080
 var cors = require('cors')
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get('/posts', (reqt, res) => {
   admin

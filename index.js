@@ -1,15 +1,16 @@
 var admin=require("firebase-admin");
 var serviceAccount = require("./mavls-social-firebase-adminsdk-q2pvh-f8a52f8f05.json");
-
+ 
+var corsOptions = {
+  origin: 'https://mavls-social.web.app',
+  optionsSuccessStatus: 200 
+}
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://mavls-social.firebaseio.com"
 });
 var db=admin.firestore();
-var corsOptions = {
-  origin: 'https://mavls-social.web.app',
-  optionsSuccessStatus: 200 
-}
+
 const express = require('express')
 const app = express()
 const port =process.env.PORT || 8080
@@ -60,8 +61,22 @@ res.json(data);
 
 
 });
+app.get("/likes",(reqt,res)=>{
+ admin
+  .auth()
+  .getUser(reqt.query.uid)
+  .then((userRecord) => {
+db.collection("likes").where("postid","==",reqt.query.postid).get().then(function(querySnapshot){
+var jso={};
+jso.count=querySnapshot.size;
+res.json(jso);
+});
+}).catch((error) => {
+    res.send("error occured");
+  });
 
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`MSOCIAL listening at${port}`)
 })

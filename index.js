@@ -23,17 +23,21 @@ app.get('/posts', (reqt, res) => {
   .getUser(reqt.query.userid)
   .then((userRecord) => {
   const list=[];
-db.collection("posts").get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
+db.collection("posts").orderBy("timestamp","desc").limit(parseInt(reqt.query.limit)).get().then(function(querySnapshot) {
+
+ querySnapshot.forEach(function(doc) {
 var jso;
 jso=doc.data();
 jso.docid=doc.id;
        list.push(jso);
 
     });
+list.splice(0,parseInt(reqt.query.offset));
+console.log(list.length);
 res.json(list);
   })
   .catch((error) => {
+console.log(error);
    res.send("error occured");
   });
 });

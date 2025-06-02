@@ -1,5 +1,5 @@
 var admin=require("firebase-admin");
-var serviceAccount = require("./mavls-social-firebase-adminsdk-q2pvh-f8a52f8f05.json");
+var serviceAccount = require("./fb.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
